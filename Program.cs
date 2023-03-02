@@ -7,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IBookActions, BookActions>();
+builder.Services.AddTransient<IMemberActions, MemberActions>();
+builder.Services.AddTransient<ICheckoutActions, CheckoutActions>();
 //builder.Services.AddScoped<IBookActions, BookActions>();
 
 var app = builder.Build();

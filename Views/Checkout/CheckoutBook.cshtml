@@ -8,27 +8,20 @@
 <form method="post" asp-controller="Checkout" asp-action="Checkout">
 
     <label>Book Name</label>
-    <select>
-
+    <select><!--asp-for="BookName" asp-items="Model.BookName"-->
         @foreach (var mybookview in Model.BookName)
         {
-            <option> <code>@mybookview</code> </option>
+            <option asp-for=@mybookview> <code>@mybookview</code> </option>
         }
-
     </select>
-
-
     <label>Member Name</label>
     <select>
-
+        <!-- asp-for="MemberName" asp-items="Model.MemberName" -->
         @foreach (var mymemberview in Model.MemberName)
         {
-            <option> <code>@mymemberview</code> </option>
+            <option asp-for=@mymemberview> <code>@mymemberview</code> </option>
         }
-
     </select>
-
-
     <button type="submit">Checkout</button>
 </form>
 

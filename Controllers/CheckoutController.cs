@@ -1,42 +1,31 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using bookish.Models;
+using bookish.Services;
 
 namespace bookish.Controllers;
 
 public class CheckoutController : Controller
 {
+    private readonly ICheckoutActions _ICheckoutActions;
+    public CheckoutController(ICheckoutActions chcekoutAction)
+    {
+        _ICheckoutActions = chcekoutAction;
+    }
+
     [HttpGet]
     public IActionResult CheckoutBook()
     {
-        using (var context = new BookishContext())
-        {
-            var booksName = context.Books.Select(p => p.BookName).ToList();
-            var membersName = context.Members.Select(p => p.FirstName).ToList();
-            var listViewModel = new MyViewModel()
-            {
-                BookName = booksName,
-                MemberName = membersName
-
-            };
-            return View(listViewModel);
-        }
+        var listViewModel = _ICheckoutActions.ViewCheckout();
+        return View(listViewModel);
+    
     }
 
     [Route("Books")]
     [HttpPost]
     public IActionResult Checkout(Checkout check)
     {
-        using (var context = new BookishContext())
-        {
-            var checkout = new Checkout()
-            {
-                MemberId = check.MemberId,
-                BookId = check.BookId
-            };
-            context.Checkout.Add(checkout);
-            context.SaveChanges();
-        }
+        _ICheckoutActions.Checkout(check);
         return Redirect("Books");
     }
 

@@ -8,9 +8,9 @@ namespace bookish.Controllers;
 public class BooksController : Controller
 {
     private readonly IBookActions _IBookActions;
-    public BooksController(IBookActions booksAction)
+    public BooksController(IBookActions bookAction)
     {
-        _IBookActions = booksAction;
+        _IBookActions = bookAction;
     }
 
     [Route("Books")]
