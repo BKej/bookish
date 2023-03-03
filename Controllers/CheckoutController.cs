@@ -23,9 +23,9 @@ public class CheckoutController : Controller
 
     [Route("Books")]
     [HttpPost]
-    public IActionResult Checkout(Checkout check)
+    public IActionResult Checkout(int bookId, int memberId)
     {
-        _ICheckoutActions.Checkout(check);
+        _ICheckoutActions.Checkout( bookId,  memberId);
         return Redirect("Books");
     }
 

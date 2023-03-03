@@ -7,7 +7,8 @@ namespace bookish.Services;
 public interface ICheckoutActions
 {
     MyViewModel ViewCheckout();
-    void Checkout(Checkout check);
+    //void Checkout(Checkout check);
+    void Checkout(int bookId, int memberId);
 }
 
 // Class - To implement the interfaces
@@ -17,26 +18,27 @@ public class CheckoutActions : ICheckoutActions
     {
         using (var context = new BookishContext())
         {
-            var booksName = context.Books.Select(p => p.BookName).ToList();
-            var membersName = context.Members.Select(p => p.FirstName).ToList();
+            var booksName = context.Books.ToList();
+            var membersName = context.Members.ToList();
             var listViewModel = new MyViewModel()
             {
-                BookName = booksName,
-                MemberName = membersName,
+                Books = booksName,
+                Members = membersName,
 
             };
             return listViewModel;
         }
     }
-    public void Checkout(Checkout check)
+    public void Checkout(int bookId, int memberId)
     {
         using (var context = new BookishContext())
         {
+
             var checkout = new Checkout()
             {
                 //context.Books.Select(p=> p.Id).Where(p=> p.BookName = check.BookName);
-                MemberId = check.MemberId,
-                BookId = check.BookId
+                MemberId = memberId,// check.MemberId,
+                BookId = bookId// check.BookId
             };
             context.Checkout.Add(checkout);
             // context.Update<Books>
