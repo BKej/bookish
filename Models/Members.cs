@@ -8,7 +8,7 @@ public class Members
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public int MembersId { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public int PhoneNo { get; set; }

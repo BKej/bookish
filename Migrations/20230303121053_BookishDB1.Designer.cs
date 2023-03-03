@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using bookish;
@@ -11,9 +12,11 @@ using bookish;
 namespace bookish.Migrations
 {
     [DbContext(typeof(BookishContext))]
-    partial class BookishContextModelSnapshot : ModelSnapshot
+    [Migration("20230303121053_BookishDB1")]
+    partial class BookishDB1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,11 +27,11 @@ namespace bookish.Migrations
 
             modelBuilder.Entity("bookish.Models.Books", b =>
                 {
-                    b.Property<int>("BooksId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("BooksId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AuthorName")
                         .IsRequired()
@@ -44,7 +47,7 @@ namespace bookish.Migrations
                     b.Property<int>("TotalNoOfCopies")
                         .HasColumnType("integer");
 
-                    b.HasKey("BooksId");
+                    b.HasKey("Id");
 
                     b.ToTable("Books");
                 });
@@ -74,20 +77,16 @@ namespace bookish.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BooksId");
-
-                    b.HasIndex("MembersId");
-
                     b.ToTable("Checkout");
                 });
 
             modelBuilder.Entity("bookish.Models.Members", b =>
                 {
-                    b.Property<int>("MembersId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MembersId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("EmailId")
                         .IsRequired()
@@ -104,28 +103,9 @@ namespace bookish.Migrations
                     b.Property<int>("PhoneNo")
                         .HasColumnType("integer");
 
-                    b.HasKey("MembersId");
+                    b.HasKey("Id");
 
                     b.ToTable("Members");
-                });
-
-            modelBuilder.Entity("bookish.Models.Checkout", b =>
-                {
-                    b.HasOne("bookish.Models.Books", "Book")
-                        .WithMany()
-                        .HasForeignKey("BooksId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("bookish.Models.Members", "Member")
-                        .WithMany()
-                        .HasForeignKey("MembersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-
-                    b.Navigation("Member");
                 });
 #pragma warning restore 612, 618
         }

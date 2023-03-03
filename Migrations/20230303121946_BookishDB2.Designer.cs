@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using bookish;
@@ -11,9 +12,11 @@ using bookish;
 namespace bookish.Migrations
 {
     [DbContext(typeof(BookishContext))]
-    partial class BookishContextModelSnapshot : ModelSnapshot
+    [Migration("20230303121946_BookishDB2")]
+    partial class BookishDB2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,10 +77,6 @@ namespace bookish.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BooksId");
-
-                    b.HasIndex("MembersId");
-
                     b.ToTable("Checkout");
                 });
 
@@ -107,25 +106,6 @@ namespace bookish.Migrations
                     b.HasKey("MembersId");
 
                     b.ToTable("Members");
-                });
-
-            modelBuilder.Entity("bookish.Models.Checkout", b =>
-                {
-                    b.HasOne("bookish.Models.Books", "Book")
-                        .WithMany()
-                        .HasForeignKey("BooksId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("bookish.Models.Members", "Member")
-                        .WithMany()
-                        .HasForeignKey("MembersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-
-                    b.Navigation("Member");
                 });
 #pragma warning restore 612, 618
         }

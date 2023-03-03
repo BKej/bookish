@@ -8,7 +8,7 @@ public class Books
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public int BooksId { get; set; }
     public string BookName { get; set; }
     public string AuthorName { get; set; }
     public int AvailableCopies { get; set; }

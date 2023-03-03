@@ -21,12 +21,11 @@ public class CheckoutController : Controller
     
     }
 
-    [Route("Books")]
+    [Route("ListCheckouts")]
     [HttpPost]
-    public IActionResult Checkout(int bookId, int memberId)
+    public IActionResult ListCheckouts(int bookId, int memberId)
     {
-        _ICheckoutActions.Checkout( bookId,  memberId);
-        return Redirect("Books");
+        var checkoutList =_ICheckoutActions.Checkout( bookId,  memberId);
+        return View(checkoutList);
     }
-
 }

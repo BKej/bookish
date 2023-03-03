@@ -1,3 +1,4 @@
+@using bookish.Models;
 @model List<Books>
 
 @{
@@ -16,7 +17,7 @@
     @foreach (var book in Model)
     {
         <tr>
-            <td><code>@book.Id</code> </td>
+            <td><code>@book.BooksId</code> </td>
             <td><code>@book.BookName</code> </td>
             <td><code>@book.AuthorName</code> </td>
             <td><code>@book.TotalNoOfCopies</code> </td>
