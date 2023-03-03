@@ -33,7 +33,12 @@ public class CheckoutActions : ICheckoutActions
     {
         using (var context = new BookishContext())
         {
+            var selectedBook = context.Books.FirstOrDefault(x => x.Id == bookId);
+            if (selectedBook != null)
+            {
+                selectedBook!.TotalNoOfCopies -= 1;
 
+            }
             var checkout = new Checkout()
             {
                 //context.Books.Select(p=> p.Id).Where(p=> p.BookName = check.BookName);
